@@ -13,8 +13,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'java -version'
-                sh " ./gradlew build --args='--sspr2.check-run=true'"
-                sh "./gradlew test"
             }
         }
     }
