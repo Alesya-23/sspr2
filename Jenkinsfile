@@ -13,13 +13,14 @@ pipeline {
         			steps {
         				sh 'docker build -t alesyademyanchuk/sspr:latest .'
         			}
-        		}
+        }
         stage('Test') {
             steps {
             	sh 'java -version'
                 sh "bash ./gradlew build"
                 sh "bash ./gradlew test"
             }
+        }
         stage('Login') {
       			steps {
       				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -29,12 +30,6 @@ pipeline {
       			steps {
       				sh 'docker push alesyademyanchuk/sspr:latest'
       			}
-      	}
-    }
-    post {
-   		always {
-      			sh 'docker logout'
-      		}
       	}
     }
 }
